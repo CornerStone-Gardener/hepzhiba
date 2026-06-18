@@ -1,0 +1,515 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>헵시바 찬양팀 전체 레퍼토리</title>
+<style>
+:root {
+  --primary: #1a3a6e;
+  --primary-light: #2a5298;
+  --accent: #e8f0fe;
+  --green: #2e7d32;
+  --yellow: #b8860b;
+  --red: #c0392b;
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --border: #dde3ee;
+  --text: #1a1a2e;
+  --sub: #6b7280;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  padding-bottom: 40px;
+}
+
+/* 헤더 */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff;
+  padding: 20px 16px 16px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.03em; }
+.header-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+
+/* 요약 바 */
+.summary-bar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 13px;
+  color: var(--sub);
+}
+.badge {
+  background: var(--accent);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* 이어 듣기 버튼 */
+.play-all-wrap {
+  padding: 12px 16px 8px;
+}
+.play-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(255,0,0,0.3);
+  transition: opacity 0.15s;
+}
+.play-all-btn:active { opacity: 0.85; }
+.play-all-btn .yt-icon { font-size: 22px; }
+.play-all-sub { font-size: 11px; font-weight: normal; opacity: 0.9; margin-top: 1px; }
+
+/* 범례 */
+.legend {
+  display: flex;
+  gap: 12px;
+  padding: 8px 16px 12px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* 키 탭 네비 */
+.keynav-wrap {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  position: sticky;
+  top: 72px;
+  z-index: 90;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.keynav-wrap::-webkit-scrollbar { display: none; }
+.keynav {
+  display: flex;
+  gap: 6px;
+  width: max-content;
+}
+.keynav a {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 36px;
+  padding: 5px 8px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: none;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.keynav a .cnt { font-size: 10px; font-weight: normal; opacity: 0.8; }
+
+/* 섹션 */
+.section { margin: 12px 16px 0; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+.section-head .cnt { font-size: 12px; font-weight: normal; opacity: 0.8; }
+
+/* 곡 카드 */
+.song-list { background: var(--card); border-radius: 0 0 var(--radius) var(--radius); border: 1px solid var(--border); border-top: none; overflow: hidden; }
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+  min-height: 48px;
+}
+.song-item:last-child { border-bottom: none; }
+.song-item:active { background: var(--accent); }
+.song-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  word-break: keep-all;
+}
+.song-name .review-flag { color: var(--red); font-size: 12px; }
+.song-key {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary);
+  min-width: 28px;
+  text-align: center;
+}
+.song-src {
+  font-size: 11px;
+  min-width: 40px;
+  text-align: right;
+}
+.yt-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.yt-link:active { opacity: 0.75; }
+.yt-none {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: #ccc;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+
+/* 연주키 칸 */
+.play-key {
+  min-width: 28px;
+  height: 28px;
+  border: 1.5px dashed #ccc;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 키 미상 섹션 */
+.nokey-section { margin: 16px 16px 0; }
+.nokey-head {
+  background: #8a6d3b;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+.nokey-list { background: var(--card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+.nokey-item { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--sub); }
+.nokey-item:last-child { border-bottom: none; }
+
+/* 인쇄 */
+@media print {
+  .keynav-wrap, .play-all-wrap { display: none; }
+  .header { position: static; }
+  .section { margin: 6px 0 0; }
+  .song-item { padding: 6px 10px; min-height: 36px; }
+  .yt-link { display: none; }
+  body { background: #fff; font-size: 10pt; }
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-title">헵시바 찬양팀 전체 레퍼토리</div>
+  <div class="header-sub">두드림+헵시바 2017~2026 · 코드별 정렬 · </div>
+</div>
+
+<div class="summary-bar">
+  <span>전체 <span class="badge"></span></span>
+  <span>원키 확보 <span class="badge">200곡</span></span>
+  <span>YouTube <span class="badge">192곡</span></span>
+  <span>키 미상 <span class="badge">4곡</span></span>
+</div>
+
+<div class="play-all-wrap">
+  <a class="play-all-btn disabled" href="https://www.youtube.com/playlist?list=PLAZFfFtJ9rXqWMy37dh6V6LQg7AZq4NUb" target="_blank" aria-disabled="true" onclick="return false;" style="background:#aaa;box-shadow:none;cursor:not-allowed;pointer-events:none;">
+    <span class="yt-icon">▶</span>
+    <span>
+      전체 이어 듣기
+      <div class="play-all-sub">준비 중 — 내일 활성화 예정 (192곡)</div>
+    </span>
+  </a>
+</div>
+
+<div class="legend">
+  <span class="legend-item"><span class="dot" style="background:#2e7d32"></span>인덱스/악보/조회 확실</span>
+  <span class="legend-item"><span class="dot" style="background:#b8860b"></span>조회·추정</span>
+  <span class="legend-item"><span class="dot" style="background:#c0392b"></span>추정⚠ 확인필요</span>
+</div>
+
+<div class='keynav-wrap'><div class='keynav'><a href='#k_C'><span>C</span><span class='cnt'>5</span></a><a href='#k_Db'><span>Db</span><span class='cnt'>1</span></a><a href='#k_D'><span>D</span><span class='cnt'>22</span></a><a href='#k_Eb'><span>Eb</span><span class='cnt'>7</span></a><a href='#k_E'><span>E</span><span class='cnt'>9</span></a><a href='#k_F'><span>F</span><span class='cnt'>29</span></a><a href='#k_G'><span>G</span><span class='cnt'>73</span></a><a href='#k_Ab'><span>Ab</span><span class='cnt'>5</span></a><a href='#k_A'><span>A</span><span class='cnt'>12</span></a><a href='#k_Bb'><span>Bb</span><span class='cnt'>27</span></a><a href='#k_B'><span>B</span><span class='cnt'>3</span></a><a href='#k_Dm'><span>Dm</span><span class='cnt'>3</span></a><a href='#k_Em'><span>Em</span><span class='cnt'>3</span></a><a href='#k_Gm'><span>Gm</span><span class='cnt'>1</span></a></div></div>
+<div class='section' id='k_C'><div class='section-head'><span>C 키</span><span class='cnt'>5곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Q21x_yA36Fg' target='_blank' title='YouTube'>▶</a><span class='song-name'>다시 복음 앞에</span><span class='song-key'>C</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=QRSE1maaGU4' target='_blank' title='YouTube'>▶</a><span class='song-name'>실로암 (어두운 밤에 캄캄한 밤에)</span><span class='song-key'>C</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=qBtvbeIPwF8' target='_blank' title='YouTube'>▶</a><span class='song-name'>알파와 오메가</span><span class='song-key'>C</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=a9XFEz4iTao' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님의 강이 (주 보좌로부터 물이 흘러)</span><span class='song-key'>C</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=XMFR-8-EMjY' target='_blank' title='YouTube'>▶</a><span class='song-name'>참 아름다워라</span><span class='song-key'>C</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+</div></div>
+<div class='section' id='k_Db'><div class='section-head'><span>Db 키</span><span class='cnt'>1곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=HW8DU9M0O1U' target='_blank' title='YouTube'>▶</a><span class='song-name'>모든 걸음 되시네 (주님 내 길 아시네)</span><span class='song-key'>Db</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+</div></div>
+<div class='section' id='k_D'><div class='section-head'><span>D 키</span><span class='cnt'>22곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=oEApIAILdso' target='_blank' title='YouTube'>▶</a><span class='song-name'>그 사랑 (아버지 사랑 내가 노래해)</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=takyQcyKM5k' target='_blank' title='YouTube'>▶</a><span class='song-name'>나는 믿네</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=zw91L_msy4c' target='_blank' title='YouTube'>▶</a><span class='song-name'>나를 받으옵소서</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=E_nBq3aBeW4' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 영원하신 기업</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>나의 찬송</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mXtv57vLuw8' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 주는 강한 성이요</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=LXftytyuGkg' target='_blank' title='YouTube'>▶</a><span class='song-name'>내가 예수를 못 박았습니다</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ootUVDcxZJs' target='_blank' title='YouTube'>▶</a><span class='song-name'>먼저 그 나라와</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=pYRfjKPCM60' target='_blank' title='YouTube'>▶</a><span class='song-name'>목마른 사슴</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=I-BjPHGRCcw' target='_blank' title='YouTube'>▶</a><span class='song-name'>복의 근원 강림하사</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=PLCnuna1ufI' target='_blank' title='YouTube'>▶</a><span class='song-name'>세상 다 변하고</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=C3Mjb8Q_pDs' target='_blank' title='YouTube'>▶</a><span class='song-name'>약할 때 강함 되시네</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=nBeE-o4u4uY' target='_blank' title='YouTube'>▶</a><span class='song-name'>여호와 우리 주여</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rANKf4eziN0' target='_blank' title='YouTube'>▶</a><span class='song-name'>예배합니다 (완전하신 나의 주)</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=jlY2jbGXiWA' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수 가장 귀한 그 이름</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=YbuPYkgE1Ho' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수 사랑해요</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Mw0utrSeAqg' target='_blank' title='YouTube'>▶</a><span class='song-name'>온 천하 만물 우러러</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3FOyDLXvGBs' target='_blank' title='YouTube'>▶</a><span class='song-name'>왕이신 나의 하나님</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ixsnowc8SeQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 앞에 엎드려 경배합니다</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=UcSWCwf44FY' target='_blank' title='YouTube'>▶</a><span class='song-name'>주를 향한 나의 사랑을</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=OoZ-w7vDoIU' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 인자는 끝이 없고</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=bBxCQHdcbww' target='_blank' title='YouTube'>▶</a><span class='song-name'>풀은 마르고</span><span class='song-key'>D</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+</div></div>
+<div class='section' id='k_Eb'><div class='section-head'><span>Eb 키</span><span class='cnt'>7곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rco1vI3Gr4c' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 구주 예수를 더욱 사랑</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=9FNMj1rPU2c' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 주를 가까이 하게 함은</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mNwz0ttmxGI' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 평생에 가는 길</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=i3WBd_zQ880' target='_blank' title='YouTube'>▶</a><span class='song-name'>아 하나님의 은혜로</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=KW1jvGnehtg' target='_blank' title='YouTube'>▶</a><span class='song-name'>은혜로다 (시작됐네)</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=xvhFVkVw9ks' target='_blank' title='YouTube'>▶</a><span class='song-name'>죄짐 맡은 우리 구주</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=q8zbfq39XVU' target='_blank' title='YouTube'>▶</a><span class='song-name'>태산을 넘어 험곡에 가도</span><span class='song-key'>Eb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+</div></div>
+<div class='section' id='k_E'><div class='section-head'><span>E 키</span><span class='cnt'>9곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mKIhNiPTsHs' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 마음을 가득 채운</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=XBnQ1aRGVmk' target='_blank' title='YouTube'>▶</a><span class='song-name'>내게로부터 눈을 들어</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Zf4wdcnRgnY' target='_blank' title='YouTube'>▶</a><span class='song-name'>밤이나 낮이나</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=lwu5g-BPa_I' target='_blank' title='YouTube'>▶</a><span class='song-name'>선한 능력으로</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=YHotq0Izh8A' target='_blank' title='YouTube'>▶</a><span class='song-name'>시선</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=fV0gnNYkjzA' target='_blank' title='YouTube'>▶</a><span class='song-name'>아침에 주의 인자하심을</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3ULRwJa3x9I' target='_blank' title='YouTube'>▶</a><span class='song-name'>얼마나 아프실까</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=NxPdJhuL5rw' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수로 살리</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=d5fr0bnlvr0' target='_blank' title='YouTube'>▶</a><span class='song-name'>지금까지 지내온 것</span><span class='song-key'>E</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+</div></div>
+<div class='section' id='k_F'><div class='section-head'><span>F 키</span><span class='cnt'>29곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Y8x_-jBKUd8' target='_blank' title='YouTube'>▶</a><span class='song-name'>그 참혹한 십자가에</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=NXLe-EFytB8' target='_blank' title='YouTube'>▶</a><span class='song-name'>나는 예배자입니다</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rEKw8T-BJgs' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 삶은 복되다</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=R_T2s440FaY' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 기도하는 그 시간</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ZHA5KjZMa3s' target='_blank' title='YouTube'>▶</a><span class='song-name'>더 원합니다</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=v50suy7nWlU' target='_blank' title='YouTube'>▶</a><span class='song-name'>목마른 내 영혼</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=VS144lgUImU' target='_blank' title='YouTube'>▶</a><span class='song-name'>보라 새 일을</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=CF-3gnx4jTc' target='_blank' title='YouTube'>▶</a><span class='song-name'>성도의 노래</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=d4cwlVQaQ-I' target='_blank' title='YouTube'>▶</a><span class='song-name'>소원 (주님 내가 주의 장막을)</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ugfWx_541m4' target='_blank' title='YouTube'>▶</a><span class='song-name'>어려운 일 당할 때</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3XQ8NlJOBr4' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수 사랑하심은</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>예수님 나를 만나주세요</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=B0DjHjKL_HI' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수님은 누구신가</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=X0yG0NA3m80' target='_blank' title='YouTube'>▶</a><span class='song-name'>우리 모두 예배하는 자 되어 (입례)<span class='review-flag'> ⚠</span></span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rEKw8T-BJgs' target='_blank' title='YouTube'>▶</a><span class='song-name'>이 길을 알게 되어 (나의 삶은 복되다)</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=GabMj72wQ0A' target='_blank' title='YouTube'>▶</a><span class='song-name'>이 믿음 더욱 굳세라 (여기에 모인 우리)</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=nWmxuxhSPEw' target='_blank' title='YouTube'>▶</a><span class='song-name'>이제 합심하여 우리 예배를</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=740Z0sVjkRI' target='_blank' title='YouTube'>▶</a><span class='song-name'>저 들밖에 한밤중에 (목자들)</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=R_eJTmlwb6Q' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 날개 밑 내가 편히 쉬네</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=HH_dHRjDynM' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 선한 능력으로 안으시네</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=aoont60SKYc' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 없이 살 수 없네</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=aoont60SKYc' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 없이 살 수 없네</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=6vsh2MChBYA' target='_blank' title='YouTube'>▶</a><span class='song-name'>주께서 높은 보좌에</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=sXqI9fWt16A' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님 뜻대로 살기로</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=-mgdeBpz2co' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님의 시간에</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ugfWx_541m4' target='_blank' title='YouTube'>▶</a><span class='song-name'>찬송가 399장<span class='review-flag'> ⚠</span></span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=VDRWiKNqPo0' target='_blank' title='YouTube'>▶</a><span class='song-name'>축복합니다</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=E6esaSaBfPw' target='_blank' title='YouTube'>▶</a><span class='song-name'>하나님은 너를 지키시는 자</span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=bLpFLJ2p60o' target='_blank' title='YouTube'>▶</a><span class='song-name'>합심<span class='review-flag'> ⚠</span></span><span class='song-key'>F</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+</div></div>
+<div class='section' id='k_G'><div class='section-head'><span>G 키</span><span class='cnt'>73곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=W9JMKBH6HQU' target='_blank' title='YouTube'>▶</a><span class='song-name'>Way Maker</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ZOcEGrqjpBA' target='_blank' title='YouTube'>▶</a><span class='song-name'>갈 길을 밝히 보이시니</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=AXkenh0Bb4k' target='_blank' title='YouTube'>▶</a><span class='song-name'>경배하리 내 온 맘 다해</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=9wtY2upOMYQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>경배하리 주 하나님</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=u1V1t06uYJM' target='_blank' title='YouTube'>▶</a><span class='song-name'>구주 예수 의지함이</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=tCjK-0mi6sI' target='_blank' title='YouTube'>▶</a><span class='song-name'>그 사랑 얼마나</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ndyihDSW6sc' target='_blank' title='YouTube'>▶</a><span class='song-name'>기뻐하며 왕께 노래 부르리</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=WMqoe_LdXm4' target='_blank' title='YouTube'>▶</a><span class='song-name'>나 주님을 사랑합니다</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3n2MkhggIKQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>나는 오늘을 살리</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=MM9kjqmwkzI' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 도움은 주께 있네</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mRMGcV02Lr4' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 슬픔을</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mRMGcV02Lr4' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 슬픔을 주가 기쁨으로</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=evFTNQOrL3w' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 하나님</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=koC5aA58bXw' target='_blank' title='YouTube'>▶</a><span class='song-name'>날 살피시는 주</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=v7gkZWhgZDA' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 주 되신 주를 참 사랑하고</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=O7zmjMpKTMw' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 주 하나님 넓고 큰 은혜는</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=eiF-bHQmeeI' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 주의 은혜 강가로</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Vv_kXSYyW-g' target='_blank' title='YouTube'>▶</a><span class='song-name'>내가 매일 기쁘게</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ycTcQwwjp6o' target='_blank' title='YouTube'>▶</a><span class='song-name'>내가 주인 삼은 모든 것</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=zj6keKWQQ1Y' target='_blank' title='YouTube'>▶</a><span class='song-name'>내게 강 같은 평화</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>누가 아는가</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rx3r9QiwPT0' target='_blank' title='YouTube'>▶</a><span class='song-name'>누군가 널 위해 기도하네</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=F05UJmCxxtY' target='_blank' title='YouTube'>▶</a><span class='song-name'>마음속에 근심 있는 사람</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=p3BBGQMSjNc' target='_blank' title='YouTube'>▶</a><span class='song-name'>문들아 머리 들어라</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=8iqhWoVbDDk' target='_blank' title='YouTube'>▶</a><span class='song-name'>물이 바다 덮음같이</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ItV9tunJjkU' target='_blank' title='YouTube'>▶</a><span class='song-name'>보라 너희는 두려워 말고</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=A_SEQKpeHVw' target='_blank' title='YouTube'>▶</a><span class='song-name'>사랑한다 말하시네</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=G04sbDPrL7o' target='_blank' title='YouTube'>▶</a><span class='song-name'>사랑해요 목소리 높여</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=F05UJmCxxtY' target='_blank' title='YouTube'>▶</a><span class='song-name'>새찬송가 365장<span class='review-flag'> ⚠</span></span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=KKU6gs_s_0Y' target='_blank' title='YouTube'>▶</a><span class='song-name'>소원</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=KKU6gs_s_0Y' target='_blank' title='YouTube'>▶</a><span class='song-name'>소원</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=V0pCLQoFmcA' target='_blank' title='YouTube'>▶</a><span class='song-name'>아버지의 노래</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>언제나 어디서나</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=TTOT-3iSJIg' target='_blank' title='YouTube'>▶</a><span class='song-name'>예배하는 이들에게</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=U-r3clAm-Zo' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수 예수</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=bBsVACE3tkQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수 우리들의 밝은 빛</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=sRSBleN2qYk' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수 피 밖에</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>예수님은 아름다와라</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=sRSBleN2qYk' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수의 피 밖에</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=-XzcH-3ir_g' target='_blank' title='YouTube'>▶</a><span class='song-name'>온전케 되리 (주 앞에 나와 제사를 드리네)</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=lA4wvuBltv4' target='_blank' title='YouTube'>▶</a><span class='song-name'>왕이신 하나님<span class='review-flag'> ⚠</span></span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Ar72nNOantI' target='_blank' title='YouTube'>▶</a><span class='song-name'>위대하신 주</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=eE_cBGCKI4s' target='_blank' title='YouTube'>▶</a><span class='song-name'>유월절 어린양의 피로</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=o8Xb9YY3Ui4' target='_blank' title='YouTube'>▶</a><span class='song-name'>이곳에 생명샘 솟아나 (꽃들도)</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>이제는 나 사는 것 아니요</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=6Xdy8I6aGpg' target='_blank' title='YouTube'>▶</a><span class='song-name'>입례</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=2zfn4_eQY5g' target='_blank' title='YouTube'>▶</a><span class='song-name'>저 장미꽃 위에 이슬</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=uiZhxj0t4Vw' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 달려 죽은 십자가</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=d3m8hBntnF0' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 말씀 향하여</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=a9XFEz4iTao' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 보좌로 부터 물이 (주님의 강이)</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=u8lq7M47BkA' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 보혈 (주의 손에 나의 손을 포개고)</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=BilOjsIydPU' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 음성 외에는</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=9zZ9OnxM-_4' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 임재 안에서</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=-VHCGZg_HqQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 품에 품으소서</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>주님 십자가 지신 그 길</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=sREz6R_Mid4' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님을 보게 하소서</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Bol03_MsuUI' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님의 뜻을 이루소서</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=U3OIKoGHAuk' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님의 시선</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mcC-Dp1x-o4' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님의 시선 (나는 38년된 병자입니다)</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ggjIMPx27BI' target='_blank' title='YouTube'>▶</a><span class='song-name'>주를 찬양하며</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=fsJ5maZ4-LU' target='_blank' title='YouTube'>▶</a><span class='song-name'>주를 찾는 모든 자들이</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=QK-WEAzOnEM' target='_blank' title='YouTube'>▶</a><span class='song-name'>주여 기운행하시네 (Way Maker)</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=0T8ogEWO32E' target='_blank' title='YouTube'>▶</a><span class='song-name'>주여 지난밤 내 꿈에</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=cmvL6ppJHO8' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 나라</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=FVUNK9wORIk' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 음성을 내가 들으니</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=9pNfyzi7O0I' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 이름 높이며</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=TKSS0P4H2zQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 자녀로 산다는 것은</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=0Yl1RTV5lI4' target='_blank' title='YouTube'>▶</a><span class='song-name'>찬송가 396장<span class='review-flag'> ⚠</span></span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=XqdLM2IAsEQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>찬양하라 복되신 구세주 예수</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Yk7I4AwrGR0' target='_blank' title='YouTube'>▶</a><span class='song-name'>축복의 통로</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=1fzPX_C_0kg' target='_blank' title='YouTube'>▶</a><span class='song-name'>하나님 아버지 주신 책은</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=alH63KOscus' target='_blank' title='YouTube'>▶</a><span class='song-name'>하나님의 부르심</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mZZde9qmiY4' target='_blank' title='YouTube'>▶</a><span class='song-name'>하나님의 은혜</span><span class='song-key'>G</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+</div></div>
+<div class='section' id='k_Ab'><div class='section-head'><span>Ab 키</span><span class='cnt'>5곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=TRkiQT8FAg0' target='_blank' title='YouTube'>▶</a><span class='song-name'>만복의 근원 하나님</span><span class='song-key'>Ab</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=o0b19TwA278' target='_blank' title='YouTube'>▶</a><span class='song-name'>비 준비하시니 (우리 주는 위대하며)</span><span class='song-key'>Ab</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=HNpN-KqhYkM' target='_blank' title='YouTube'>▶</a><span class='song-name'>십자가를 내가 지고</span><span class='song-key'>Ab</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=7VpH_eTtDpM' target='_blank' title='YouTube'>▶</a><span class='song-name'>장례희망</span><span class='song-key'>Ab</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=PjsRm4wxOgE' target='_blank' title='YouTube'>▶</a><span class='song-name'>저 높은 곳을 향하여</span><span class='song-key'>Ab</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+</div></div>
+<div class='section' id='k_A'><div class='section-head'><span>A 키</span><span class='cnt'>12곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=aFL2u1T4VzM' target='_blank' title='YouTube'>▶</a><span class='song-name'>교회여 일어나라</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=TwL1GJ71H3w' target='_blank' title='YouTube'>▶</a><span class='song-name'>나를 부르신 주</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=X_ihEz1FAbg' target='_blank' title='YouTube'>▶</a><span class='song-name'>너 결코</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=jdG2HxB7Q_Y' target='_blank' title='YouTube'>▶</a><span class='song-name'>만방의 족속들아</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=LWWyn2xZ91I' target='_blank' title='YouTube'>▶</a><span class='song-name'>무화과 나뭇잎이 마르고</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=C2iSLs3wG64' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수예수 (어노인팅)</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=9buJkJJ5dVE' target='_blank' title='YouTube'>▶</a><span class='song-name'>온 땅의 모든 만물</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mVVtx2hGrCs' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 가 일하시네</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=T76u01cikEw' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님의 마음을 가진 자</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=AgYVDLXM5MU' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 도를 내게 알리소서</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=qvaiTyPaN_M' target='_blank' title='YouTube'>▶</a><span class='song-name'>큰 꿈은 없습니다<span class='review-flag'> ⚠</span></span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=wsdO4FELWNM' target='_blank' title='YouTube'>▶</a><span class='song-name'>푯대를 향하여</span><span class='song-key'>A</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+</div></div>
+<div class='section' id='k_Bb'><div class='section-head'><span>Bb 키</span><span class='cnt'>27곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=D9oJRd-nnTA' target='_blank' title='YouTube'>▶</a><span class='song-name'>구주와 함께 나 죽었으니</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=QINUFDeks6c' target='_blank' title='YouTube'>▶</a><span class='song-name'>귀하신 친구 내게 계시니</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=VZdMLgChd-8' target='_blank' title='YouTube'>▶</a><span class='song-name'>나의 갈 길 다 가도록</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Hf0wNXvRR1o' target='_blank' title='YouTube'>▶</a><span class='song-name'>낮은 자의 하나님</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3fL65mK6BQw' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 맘이 낙심되며</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=jLuhZ5o_yUM' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 영혼이 은총 입어</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=g--LqfhUCE4' target='_blank' title='YouTube'>▶</a><span class='song-name'>내 주의 나라와</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=o09g4P9ww1Q' target='_blank' title='YouTube'>▶</a><span class='song-name'>내가 늘 의지하는 예수</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=O3nOrZ1lDVw' target='_blank' title='YouTube'>▶</a><span class='song-name'>모든 능력과 모든 권세</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=KwImyDlSsaU' target='_blank' title='YouTube'>▶</a><span class='song-name'>살아계신 주 (주 하나님 독생자 예수)</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3yO_M8L7Igg' target='_blank' title='YouTube'>▶</a><span class='song-name'>성령이 오셨네</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=yzlzAQapys0' target='_blank' title='YouTube'>▶</a><span class='song-name'>십자가 (무엇이 변치 않아)</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=pEiKgh2Mplo' target='_blank' title='YouTube'>▶</a><span class='song-name'>십자가 군병되어서</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=NpIiVncRPmg' target='_blank' title='YouTube'>▶</a><span class='song-name'>십자가를 질 수 있나</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=OFo-1PHdf94' target='_blank' title='YouTube'>▶</a><span class='song-name'>어저께나 오늘이나</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=eV9DRROVkSc' target='_blank' title='YouTube'>▶</a><span class='song-name'>예수는 나의 힘이요</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=TvF7KjM0h30' target='_blank' title='YouTube'>▶</a><span class='song-name'>오 놀라운 구세주</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=fybUnTbB9kA' target='_blank' title='YouTube'>▶</a><span class='song-name'>은혜</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=fybUnTbB9kA' target='_blank' title='YouTube'>▶</a><span class='song-name'>은혜</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=D3lwm18SLUo' target='_blank' title='YouTube'>▶</a><span class='song-name'>은혜 (내가 누려왔던)</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=YTE7W2DOK8U' target='_blank' title='YouTube'>▶</a><span class='song-name'>은혜 (손경민)</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>악보판독</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=A159bJU323k' target='_blank' title='YouTube'>▶</a><span class='song-name'>전능하신 나의 주</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=s4oq_bwIcHw' target='_blank' title='YouTube'>▶</a><span class='song-name'>죄 많은 이 세상은 내 집 아니네</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=qhnLNAlK3e0' target='_blank' title='YouTube'>▶</a><span class='song-name'>주 예수 내 맘에 들어와</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><span class='yt-none'>—</span><span class='song-name'>주여 이 시간</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ZWquExqPvO0' target='_blank' title='YouTube'>▶</a><span class='song-name'>주의 아름다움은</span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=BqDz7o8S7DI' target='_blank' title='YouTube'>▶</a><span class='song-name'>하나님의 그늘 아래<span class='review-flag'> ⚠</span></span><span class='song-key'>Bb</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+</div></div>
+<div class='section' id='k_B'><div class='section-head'><span>B 키</span><span class='cnt'>3곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=cCP6lgM0tzc' target='_blank' title='YouTube'>▶</a><span class='song-name'>Goodness of God</span><span class='song-key'>B</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>조회</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=4Z7ogTPjYQs' target='_blank' title='YouTube'>▶</a><span class='song-name'>죄에서 자유를 얻게 함은</span><span class='song-key'>B</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=aapN5at9fbM' target='_blank' title='YouTube'>▶</a><span class='song-name'>축복하노라</span><span class='song-key'>B</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>파일명</span></span></div>
+</div></div>
+<div class='section' id='k_Dm'><div class='section-head'><span>Dm 키</span><span class='cnt'>3곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=cWL8y4OTTuM' target='_blank' title='YouTube'>▶</a><span class='song-name'>사막에 샘이 넘쳐흐르리라</span><span class='song-key'>Dm</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#c0392b'>추정⚠</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=MRcgB3BLpmg' target='_blank' title='YouTube'>▶</a><span class='song-name'>저 성벽을 향해 전진하라</span><span class='song-key'>Dm</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=XhmoEvRhack' target='_blank' title='YouTube'>▶</a><span class='song-name'>주님과 담대히 나아가</span><span class='song-key'>Dm</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+</div></div>
+<div class='section' id='k_Em'><div class='section-head'><span>Em 키</span><span class='cnt'>3곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=UcoPsi29jAw' target='_blank' title='YouTube'>▶</a><span class='song-name'>기쁜 노래 주께 드리자</span><span class='song-key'>Em</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=FH-wiWUo2xQ' target='_blank' title='YouTube'>▶</a><span class='song-name'>온 땅이여 주를 찬양</span><span class='song-key'>Em</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=AErD6U1W6M0' target='_blank' title='YouTube'>▶</a><span class='song-name'>우리 주의 성령이</span><span class='song-key'>Em</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#2e7d32'>인덱스</span></span></div>
+</div></div>
+<div class='section' id='k_Gm'><div class='section-head'><span>Gm 키</span><span class='cnt'>1곡</span></div><div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=YCgvsJa28P8' target='_blank' title='YouTube'>▶</a><span class='song-name'>너는 크게 자유를 외쳐라</span><span class='song-key'>Gm</span><div class='play-key' title='연주키(직접기입)'>—</div><span class='song-src'><span style='color:#b8860b'>조회·추정</span></span></div>
+</div></div>
+<div class='nokey-section'><div class='nokey-head'>📋 키 미상 4곡</div><div class='nokey-list'>
+<div class='nokey-item'>· 모든 민족에게 주 성령 부어주소서</div>
+<div class='nokey-item'>· 어노인팅 찬송가 3 전곡</div>
+<div class='nokey-item'>· 주를 찬양</div>
+<div class='nokey-item'>· 할렐루야</div>
+</div></div>
+</body></html>
+
