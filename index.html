@@ -73,14 +73,14 @@ body {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #ff0000;
-  color: #fff;
+  background: #ff0000 !important;
+  color: #fff !important;
   border-radius: 10px;
   padding: 13px 18px;
   text-decoration: none;
   font-weight: bold;
   font-size: 15px;
-  box-shadow: 0 2px 8px rgba(255,0,0,0.3);
+  box-shadow: 0 2px 8px rgba(255,0,0,0.3) !important;
   transition: opacity 0.15s;
 }
 .play-all-btn:active { opacity: 0.85; }
@@ -329,11 +329,11 @@ body {
 </div>
 
 <div class="play-all-wrap">
-  <a class="play-all-btn disabled" href="https://www.youtube.com/playlist?list=PLAZFfFtJ9rXqWMy37dh6V6LQg7AZq4NUb" target="_blank" aria-disabled="true" onclick="return false;" style="background:#aaa;box-shadow:none;cursor:not-allowed;pointer-events:none;">
+  <a class="play-all-btn" href="https://www.youtube.com/watch?v=Q21x_yA36Fg&list=PLAZFfFtJ9rXqWMy37dh6V6LQg7AZq4NUb&index=1&autoplay=1" target="_blank" style="background:#ff0000 !important;color:#fff !important;box-shadow:0 2px 8px rgba(255,0,0,0.3) !important;cursor:pointer !important;pointer-events:auto !important;">
     <span class="yt-icon">▶</span>
     <span>
       전체 이어 듣기
-      <div class="play-all-sub">준비 중 — 내일 활성화 예정 (192곡)</div>
+      <div class="play-all-sub">유튜브 재생목록 자동재생 · 다음/이전곡 가능</div>
     </span>
   </a>
 </div>
