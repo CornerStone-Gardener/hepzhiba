@@ -1,0 +1,18 @@
+﻿{
+  "title": "이번달 월삭예배 콘티",
+  "month": "이번달",
+  "serviceDate": "",
+  "location": "목천교회",
+  "leader": "",
+  "status": "준비중",
+  "memo": "이 파일에서 title에 곡명을 입력하면 monthly.html에서 코드, 유튜브, 악보가 자동 연결됩니다.",
+  "items": [
+    { "order": 1, "title": "", "role": "오프닝", "note": "밝게 시작하는 찬양" },
+    { "order": 2, "title": "", "role": "찬양", "note": "" },
+    { "order": 3, "title": "", "role": "찬양", "note": "" },
+    { "order": 4, "title": "", "role": "기도 전", "note": "분위기를 모으는 곡" },
+    { "order": 5, "title": "", "role": "말씀/기도 후", "note": "" },
+    { "order": 6, "title": "", "role": "마무리", "note": "고백 또는 파송 찬양" }
+  ],
+  "candidates": []
+}

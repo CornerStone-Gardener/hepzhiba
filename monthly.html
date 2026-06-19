@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>헵시바 찬양팀 이번달 월삭예배 콘티</title>
+<style>
+:root {
+  --primary: #1a3a6e;
+  --primary-light: #2a5298;
+  --accent: #e8f0fe;
+  --green: #2e7d32;
+  --red: #c0392b;
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --border: #dde3ee;
+  --text: #1a1a2e;
+  --sub: #6b7280;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+body {
+  font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  padding-bottom: 40px;
+}
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff;
+  padding: 20px 16px 16px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.03em; }
+.header-sub { font-size: 12px; opacity: 0.85; margin-top: 3px; }
+.view-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 12px 16px 0;
+}
+.view-switch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+.view-switch a.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+.summary {
+  margin: 12px 16px 0;
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+}
+.summary h1 { font-size: 18px; margin-bottom: 6px; color: var(--primary); }
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  color: var(--sub);
+  font-size: 13px;
+}
+.badge {
+  background: var(--accent);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 20px;
+}
+.memo { margin-top: 10px; color: var(--sub); font-size: 13px; }
+.play-all-wrap { padding: 12px 16px 0; }
+.play-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 10px;
+  padding: 13px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(255,0,0,0.3);
+}
+.play-all-btn.disabled {
+  background: #9aa3af;
+  box-shadow: none;
+  pointer-events: none;
+}
+.section { margin: 12px 16px 0; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+.setlist {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-top: none;
+  border-radius: 0 0 var(--radius) var(--radius);
+  overflow: hidden;
+}
+.song-row {
+  display: grid;
+  grid-template-columns: 34px 34px 34px 1fr auto;
+  gap: 8px;
+  align-items: center;
+  padding: 11px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.song-row:last-child { border-bottom: none; }
+.order {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 13px;
+}
+.yt-link, .sheet-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  text-decoration: none;
+  flex-shrink: 0;
+  border: none;
+  cursor: pointer;
+}
+.yt-link { background: #ff0000; color: #fff; font-size: 14px; }
+.sheet-btn { background: var(--green); color: #fff; font-size: 15px; }
+.none {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: #c8ced8;
+  font-size: 18px;
+}
+.song-main { min-width: 0; }
+.song-title { font-weight: bold; font-size: 15px; word-break: keep-all; }
+.song-title.empty { color: #9aa3af; font-weight: normal; }
+.song-note { color: var(--sub); font-size: 12px; margin-top: 1px; }
+.song-key {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary);
+  min-width: 36px;
+  text-align: center;
+}
+.candidate-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--border);
+}
+.candidate-row:last-child { border-bottom: none; }
+.edit-help {
+  margin: 12px 16px 0;
+  background: #fff;
+  border: 1px dashed #b8c2d1;
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  color: var(--sub);
+  font-size: 13px;
+}
+.edit-help code {
+  color: var(--primary);
+  font-weight: bold;
+}
+.sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.sheet-overlay.open { display: flex; }
+.sheet-popup {
+  position: relative;
+  max-width: 100%;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sheet-popup-head {
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+.sheet-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.sheet-img {
+  max-width: 100%;
+  max-height: calc(90vh - 48px);
+  object-fit: contain;
+  display: block;
+}
+@media (max-width: 430px) {
+  .view-switch a { font-size: 13px; }
+  .song-row { grid-template-columns: 30px 32px 32px 1fr 34px; gap: 6px; padding: 10px; }
+}
+@media print {
+  .header { position: static; }
+  .view-switch, .play-all-wrap, .yt-link, .none, .edit-help { display: none; }
+  body { background: #fff; font-size: 10pt; }
+  .section, .summary { margin: 8px 0 0; }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-title">헵시바 찬양팀 월삭예배 콘티</div>
+  <div class="header-sub">JSON으로 관리 · 자동 링크 연결 · 2026-06-20 07:51</div>
+</div>
+
+<div class="view-switch">
+  <a href="index.html">코드별</a>
+  <a href="alphabet.html">가나다순</a>
+  <a class="active" href="monthly.html">이번달 콘티</a>
+</div>
+
+<main id="app">
+  <div class="summary">
+    <h1>콘티를 불러오는 중입니다</h1>
+    <div class="meta"><span class="badge">monthly-setlist.json</span></div>
+  </div>
+</main>
+
+<div class="sheet-overlay" id="sheetOverlay" onclick="closeSheet(event)">
+  <div class="sheet-popup">
+    <div class="sheet-popup-head">
+      <span id="sheetTitle">악보</span>
+      <button class="sheet-close" onclick="document.getElementById('sheetOverlay').classList.remove('open')">✕</button>
+    </div>
+    <img class="sheet-img" id="sheetImg" src="" alt="악보">
+  </div>
+</div>
+
+<script>
+const app = document.getElementById('app');
+const esc = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+const norm = value => String(value || '').replace(/\s/g, '').replace(/\([^)]*\)/g, '').replace(/[,\s장]+/g, '').toLowerCase();
+
+function findSong(db, title) {
+  const key = norm(title);
+  if (!key) return null;
+  return db.find(song => norm(song.title) === key)
+    || db.find(song => norm(song.title).startsWith(key) || key.startsWith(norm(song.title)));
+}
+
+function videoId(url) {
+  const match = String(url || '').match(/[?&]v=([A-Za-z0-9_-]{11})/);
+  return match ? match[1] : '';
+}
+
+function playAllUrl(items, db) {
+  const ids = items
+    .map(item => findSong(db, item.title))
+    .map(song => song ? videoId(song.url) : '')
+    .filter(Boolean);
+  if (!ids.length) return '';
+  if (ids.length === 1) return `https://www.youtube.com/watch?v=${ids[0]}&autoplay=1`;
+  return `https://www.youtube.com/watch_videos?video_ids=${ids.join(',')}`;
+}
+
+function renderSongRow(item, db) {
+  const song = findSong(db, item.title);
+  const title = item.title || '';
+  const key = item.key || (song && song.key) || '';
+  const url = item.url || (song && song.url) || '';
+  const sheet = item.sheet || (song && song.sheet) || '';
+  const role = item.role || '';
+  const note = item.note || '';
+  const ytHtml = url
+    ? `<a class="yt-link" href="${esc(url)}" target="_blank" title="YouTube">▶</a>`
+    : `<span class="none">—</span>`;
+  const sheetHtml = sheet
+    ? `<button class="sheet-btn" onclick="openSheet('${esc(sheet)}','${esc(title)}')" title="악보 보기">📄</button>`
+    : `<span class="none">—</span>`;
+  const titleHtml = title
+    ? `<div class="song-title">${esc(title)}</div>`
+    : `<div class="song-title empty">곡명 입력 대기</div>`;
+  const noteParts = [role, note].filter(Boolean).map(esc).join(' · ');
+  return `
+    <div class="song-row">
+      <div class="order">${esc(item.order || '')}</div>
+      ${ytHtml}
+      ${sheetHtml}
+      <div class="song-main">
+        ${titleHtml}
+        ${noteParts ? `<div class="song-note">${noteParts}</div>` : ''}
+      </div>
+      <div class="song-key">${esc(key || '—')}</div>
+    </div>`;
+}
+
+function renderCandidates(candidates, db) {
+  if (!Array.isArray(candidates) || !candidates.length) return '';
+  const rows = candidates.map((item, index) => {
+    const song = findSong(db, item.title);
+    const url = item.url || (song && song.url) || '';
+    const sheet = item.sheet || (song && song.sheet) || '';
+    return `<div class="candidate-row">
+      <span class="order">${index + 1}</span>
+      ${url ? `<a class="yt-link" href="${esc(url)}" target="_blank">▶</a>` : `<span class="none">—</span>`}
+      ${sheet ? `<button class="sheet-btn" onclick="openSheet('${esc(sheet)}','${esc(item.title)}')">📄</button>` : `<span class="none">—</span>`}
+      <div class="song-main">
+        <div class="song-title">${esc(item.title || '후보곡 입력 대기')}</div>
+        ${item.note ? `<div class="song-note">${esc(item.note)}</div>` : ''}
+      </div>
+    </div>`;
+  }).join('');
+  return `<section class="section"><div class="section-head"><span>다음 후보곡</span><span>${candidates.length}곡</span></div><div class="setlist">${rows}</div></section>`;
+}
+
+function render(setlist, db) {
+  const items = Array.isArray(setlist.items) ? setlist.items : [];
+  const filledCount = items.filter(item => item.title).length;
+  const ytCount = items.filter(item => {
+    const song = findSong(db, item.title);
+    return item.url || (song && song.url);
+  }).length;
+  const allUrl = playAllUrl(items, db);
+  app.innerHTML = `
+    <section class="summary">
+      <h1>${esc(setlist.title || '이번달 월삭예배 콘티')}</h1>
+      <div class="meta">
+        <span class="badge">${esc(setlist.month || '이번달')}</span>
+        <span>${setlist.serviceDate ? esc(setlist.serviceDate) : '예배일 미입력'}</span>
+        <span>${setlist.location ? esc(setlist.location) : '장소 미입력'}</span>
+        <span>${setlist.leader ? '인도: ' + esc(setlist.leader) : '인도자 미입력'}</span>
+        <span>${esc(setlist.status || '준비중')}</span>
+      </div>
+      ${setlist.memo ? `<div class="memo">${esc(setlist.memo)}</div>` : ''}
+    </section>
+    <div class="play-all-wrap">
+      <a class="play-all-btn ${allUrl ? '' : 'disabled'}" href="${esc(allUrl || '#')}" target="_blank">
+        <span>▶</span>
+        <span>이번 콘티 이어 듣기<div class="song-note">${ytCount}/${filledCount || items.length}곡 YouTube 연결</div></span>
+      </a>
+    </div>
+    <section class="section">
+      <div class="section-head"><span>콘티 순서</span><span>${filledCount}/${items.length}곡 입력</span></div>
+      <div class="setlist">${items.map(item => renderSongRow(item, db)).join('')}</div>
+    </section>
+    ${renderCandidates(setlist.candidates, db)}
+    <div class="edit-help">
+      수정 파일: <code>monthly-setlist.json</code> · 곡명은 전체 레퍼토리의 제목과 같게 쓰면 자동 연결됩니다.
+    </div>`;
+}
+
+function openSheet(src, title){
+  document.getElementById('sheetImg').src = src;
+  document.getElementById('sheetTitle').textContent = title || '악보';
+  document.getElementById('sheetOverlay').classList.add('open');
+}
+function closeSheet(e){
+  if(e.target === document.getElementById('sheetOverlay'))
+    document.getElementById('sheetOverlay').classList.remove('open');
+}
+document.addEventListener('keydown', function(e){
+  if(e.key === 'Escape') document.getElementById('sheetOverlay').classList.remove('open');
+});
+
+Promise.all([
+  fetch('monthly-setlist.json', {cache: 'no-store'}).then(r => r.json()),
+  fetch('monthly-song-db.json', {cache: 'no-store'}).then(r => r.json())
+]).then(([setlist, db]) => render(setlist, db))
+  .catch(error => {
+    app.innerHTML = `<div class="summary"><h1>콘티 파일을 불러오지 못했습니다</h1><div class="memo">${esc(error.message)}</div></div>`;
+  });
+</script>
+</body>
+</html>
