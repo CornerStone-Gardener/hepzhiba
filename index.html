@@ -65,6 +65,32 @@ body {
   font-size: 13px;
 }
 
+/* 보기 전환 */
+.view-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  padding: 12px 16px 0;
+}
+.view-switch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+.view-switch a.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
 /* 이어 듣기 버튼 */
 .play-all-wrap {
   padding: 12px 16px 8px;
@@ -305,7 +331,7 @@ body {
 
 /* 인쇄 */
 @media print {
-  .keynav-wrap, .play-all-wrap { display: none; }
+  .keynav-wrap, .view-switch, .play-all-wrap { display: none; }
   .header { position: static; }
   .section { margin: 6px 0 0; }
   .song-item { padding: 6px 10px; min-height: 36px; }
@@ -326,6 +352,11 @@ body {
   <span>원키 확보 <span class="badge">200곡</span></span>
   <span>YouTube <span class="badge">192곡</span></span>
   <span>키 미상 <span class="badge">4곡</span></span>
+</div>
+
+<div class="view-switch">
+  <a class="active" href="index.html">코드별 보기</a>
+  <a href="alphabet.html">가나다순 보기</a>
 </div>
 
 <div class="play-all-wrap">
