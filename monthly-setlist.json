@@ -1,16 +1,17 @@
 {
   "title": "이번달 월삭예배 콘티",
-  "month": "2026년 7월",
+  "month": "2026년 8월",
   "serviceDate": "",
   "location": "목천교회",
   "leader": "",
   "status": "준비중",
   "memo": "",
   "items": [
-    { "order": 1, "title": "주여 이 시간", "role": "", "note": "" },
-    { "order": 2, "title": "나의 삶은 복되다", "role": "", "note": "" },
-    { "order": 3, "title": "예수 예수", "role": "", "note": "" },
-    { "order": 4, "title": "푯대를 향하여", "role": "", "note": "" }
+    { "order": 1, "title": "합심", "key": "F", "role": "", "note": "WELOVE", "sheet": "sheets/합심_F.png" },
+    { "order": 2, "title": "주님 한분만으로", "key": "F", "role": "", "note": "아이엠워십", "url": "https://www.youtube.com/watch?v=Mtvx7rLxn9o", "sheet": "sheets/주님한분만으로_F.png" },
+    { "order": 3, "title": "여호와를 즐거이 불러", "key": "F", "role": "", "note": "감사함으로 · 심종호", "url": "https://www.youtube.com/watch?v=ruLlnDXAq2E", "sheet": "sheets/여호와를즐거이불러_F.png" },
+    { "order": 4, "title": "은혜 아니면 살아갈 수가 없네", "key": "D", "role": "", "note": "오직 예수뿐이네 · 마커스워십", "url": "https://www.youtube.com/watch?v=fptmag7dexc", "sheet": "sheets/은혜아니면살아갈수가없네_D.jpg" },
+    { "order": 5, "title": "주의 사랑을 주의 선하심을", "key": "D", "role": "", "note": "마커스워십", "url": "https://www.youtube.com/watch?v=vLDIRwgpmwg", "sheet": "sheets/주의사랑을주의선하심을_D.jpg" }
   ],
   "candidates": []
 }
