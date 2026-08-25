@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="ko"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>헵시바 노방찬양 콘티</title>
+<style>
+:root {
+  --primary: #1a3a6e;
+  --primary-light: #2a5298;
+  --accent: #e8f0fe;
+  --green: #2e7d32;
+  --yellow: #b8860b;
+  --red: #c0392b;
+  --bg: #f5f7fa;
+  --card: #ffffff;
+  --border: #dde3ee;
+  --text: #1a1a2e;
+  --sub: #6b7280;
+  --radius: 12px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, sans-serif;
+  font-size: 15px;
+  color: var(--text);
+  background: var(--bg);
+  line-height: 1.6;
+  padding-bottom: 40px;
+}
+
+/* 헤더 */
+.header {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+  color: #fff;
+  padding: 20px 16px 16px;
+  text-align: center;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+.header-title { font-size: 18px; font-weight: bold; letter-spacing: 0.03em; }
+.header-sub { font-size: 12px; opacity: 0.8; margin-top: 3px; }
+
+/* 요약 바 */
+.summary-bar {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 12px 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+  font-size: 13px;
+  color: var(--sub);
+}
+.badge {
+  background: var(--accent);
+  color: var(--primary);
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 20px;
+  font-size: 13px;
+}
+
+/* 보기 전환 */
+.view-switch {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 8px;
+  padding: 12px 16px 0;
+}
+.view-switch a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: #fff;
+  color: var(--primary);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 14px;
+}
+.view-switch a.active {
+  background: var(--primary);
+  color: #fff;
+  border-color: var(--primary);
+}
+
+/* 이어 듣기 버튼 */
+.play-all-wrap {
+  padding: 12px 16px 8px;
+}
+.play-all-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #ff0000 !important;
+  color: #fff !important;
+  border-radius: 10px;
+  padding: 13px 18px;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 15px;
+  box-shadow: 0 2px 8px rgba(255,0,0,0.3) !important;
+  transition: opacity 0.15s;
+}
+.play-all-btn:active { opacity: 0.85; }
+.play-all-btn .yt-icon { font-size: 22px; }
+.play-all-sub { font-size: 11px; font-weight: normal; opacity: 0.9; margin-top: 1px; }
+
+/* 범례 */
+.legend {
+  display: flex;
+  gap: 12px;
+  padding: 8px 16px 12px;
+  font-size: 12px;
+  flex-wrap: wrap;
+}
+.legend-item { display: flex; align-items: center; gap: 4px; }
+.dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+
+/* 키 탭 네비 */
+.keynav-wrap {
+  background: var(--card);
+  border-bottom: 1px solid var(--border);
+  padding: 10px 16px;
+  position: sticky;
+  top: 72px;
+  z-index: 90;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+.keynav-wrap::-webkit-scrollbar { display: none; }
+.keynav {
+  display: flex;
+  gap: 6px;
+  width: max-content;
+}
+.keynav a {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  min-width: 36px;
+  padding: 5px 8px;
+  background: var(--primary);
+  color: #fff;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 13px;
+  text-decoration: none;
+  line-height: 1.2;
+  white-space: nowrap;
+}
+.keynav a .cnt { font-size: 10px; font-weight: normal; opacity: 0.8; }
+
+/* 섹션 */
+.section { margin: 12px 16px 0; }
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: var(--primary);
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 16px;
+  font-weight: bold;
+}
+.section-head .cnt { font-size: 12px; font-weight: normal; opacity: 0.8; }
+
+/* 곡 카드 */
+.song-list { background: var(--card); border-radius: 0 0 var(--radius) var(--radius); border: 1px solid var(--border); border-top: none; overflow: hidden; }
+.song-item {
+  display: flex;
+  align-items: center;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+  gap: 10px;
+  min-height: 48px;
+}
+.song-item:last-child { border-bottom: none; }
+.song-item:active { background: var(--accent); }
+.song-name {
+  flex: 1;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  word-break: keep-all;
+}
+.song-name .review-flag { color: var(--red); font-size: 12px; }
+.song-key {
+  font-size: 14px;
+  font-weight: bold;
+  color: var(--primary);
+  min-width: 28px;
+  text-align: center;
+}
+.song-src {
+  font-size: 11px;
+  min-width: 40px;
+  text-align: right;
+}
+.yt-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #ff0000;
+  color: #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+.yt-link:active { opacity: 0.75; }
+.yt-none {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  color: #ccc;
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.sheet-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: #2e7d32;
+  color: #fff;
+  border-radius: 8px;
+  font-size: 15px;
+  flex-shrink: 0;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+}
+.sheet-btn:active { opacity: 0.75; }
+.sheet-none {
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+}
+/* 악보 팝업 */
+.sheet-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.85);
+  z-index: 1000;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+.sheet-overlay.open { display: flex; }
+.sheet-popup {
+  position: relative;
+  max-width: 100%;
+  max-height: 90vh;
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.sheet-popup-head {
+  background: #1a3a6e;
+  color: #fff;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 14px;
+  font-weight: bold;
+}
+.sheet-close {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  padding: 0 4px;
+  line-height: 1;
+}
+.sheet-img {
+  max-width: 100%;
+  max-height: calc(90vh - 48px);
+  object-fit: contain;
+  display: block;
+}
+
+/* 연주키 칸 */
+.play-key {
+  min-width: 28px;
+  height: 28px;
+  border: 1.5px dashed #ccc;
+  border-radius: 6px;
+  text-align: center;
+  font-size: 12px;
+  color: #aaa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+/* 키 미상 섹션 */
+.nokey-section { margin: 16px 16px 0; }
+.nokey-head {
+  background: #8a6d3b;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: var(--radius) var(--radius) 0 0;
+  font-size: 15px;
+  font-weight: bold;
+}
+.nokey-list { background: var(--card); border: 1px solid var(--border); border-top: none; border-radius: 0 0 var(--radius) var(--radius); overflow: hidden; }
+.nokey-item { padding: 10px 14px; border-bottom: 1px solid var(--border); font-size: 14px; color: var(--sub); }
+.nokey-item:last-child { border-bottom: none; }
+
+/* 인쇄 */
+@media print {
+  .keynav-wrap, .view-switch, .play-all-wrap { display: none; }
+  .header { position: static; }
+  .section { margin: 6px 0 0; }
+  .song-item { padding: 6px 10px; min-height: 36px; }
+  .yt-link { display: none; }
+  body { background: #fff; font-size: 10pt; }
+}
+</style>
+
+<style>
+.nb-no{
+  flex:0 0 34px; text-align:center; font-weight:bold; font-size:13px;
+  color:var(--sub); font-variant-numeric:tabular-nums;
+}
+.song-item .nb-no + .song-name{ margin-left:2px; }
+.nb-alt .nb-no{ color:#c0392b; }
+.play-row{ display:grid; grid-template-columns:1fr 1fr; gap:8px; padding:12px 16px 4px; }
+@media(max-width:560px){ .play-row{ grid-template-columns:1fr; } }
+.play-btn{
+  display:flex; align-items:center; gap:10px; text-decoration:none;
+  background:#ff0000; color:#fff; border-radius:10px; padding:12px 14px;
+}
+.play-btn.sub{ background:#fff; color:var(--primary); border:1px solid var(--border); }
+.play-btn .yt-icon{ font-size:16px; }
+.play-btn b{ font-size:14.5px; display:block; }
+.play-btn small{ font-size:11.5px; opacity:.85; }
+</style>
+
+</head><body>
+
+<div class="header">
+  <h1>면목역 노방찬양 콘티</h1>
+  <div class="sub">2026. 10. 17.(토) · 면목역 광장 · 본곡 12곡 + 후보곡 11곡</div>
+</div>
+
+<div class="summary-bar">
+  <span>본곡 <span class="badge">12곡</span></span>
+  <span>후보곡 <span class="badge">11곡</span></span>
+  <span>공연 순서 그대로</span>
+</div>
+
+<div class="view-switch">
+  <a href="index.html">코드별</a>
+  <a href="alphabet.html">가나다순</a>
+  <a href="monthly.html">이번달 콘티</a>
+  <a class="active" href="nobang.html">노방찬양</a>
+</div>
+
+<div class="play-row">
+  <a class="play-btn" href="https://www.youtube.com/watch_videos?video_ids=s3HySr8EoTY,XMFR-8-EMjY,pYRfjKPCM60,lwu5g-BPa_I,rx3r9QiwPT0,E6esaSaBfPw,KaGkegxnk14,D3lwm18SLUo,yzlzAQapys0,O3nOrZ1lDVw,3FOyDLXvGBs,8iqhWoVbDDk" target="_blank" rel="noopener">
+    <span class="yt-icon">▶</span>
+    <span><b>본곡 전체 듣기</b><small>12곡 · 1부 + 2부 · 순서대로 자동재생</small></span>
+  </a>
+  <a class="play-btn sub" href="https://www.youtube.com/watch_videos?video_ids=s3HySr8EoTY,XMFR-8-EMjY,pYRfjKPCM60,lwu5g-BPa_I,rx3r9QiwPT0,E6esaSaBfPw,KaGkegxnk14,D3lwm18SLUo,yzlzAQapys0,O3nOrZ1lDVw,3FOyDLXvGBs,8iqhWoVbDDk,Vv_kXSYyW-g,F05UJmCxxtY,rANKf4eziN0,Zf4wdcnRgnY,HH_dHRjDynM,xvhFVkVw9ks,mNwz0ttmxGI,q8zbfq39XVU,Y8x_-jBKUd8,XqdLM2IAsEQ,ItV9tunJjkU" target="_blank" rel="noopener">
+    <span class="yt-icon">▶</span>
+    <span><b>본곡 + 후보곡 전체 듣기</b><small>23곡 · 목록 끝까지</small></span>
+  </a>
+</div>
+
+<div class='section'><div class='section-head'><span>본곡 · 1부</span><span class='cnt'>6곡</span></div>
+<div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=s3HySr8EoTY' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>1</span><span class='song-name'>혼자 걷지 않을 거예요</span><span class='song-key'>C</span><span class='song-src'>폭풍 속을 걷고 있을 때 · 예람워십</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=XMFR-8-EMjY' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>2</span><span class='song-name'>참 아름다워라</span><span class='song-key'>C</span><span class='song-src'>1~3절 · 전조 없음</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=pYRfjKPCM60' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>3</span><span class='song-name'>목마른 사슴</span><span class='song-key'>C</span><span class='song-src'></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=lwu5g-BPa_I' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>4</span><span class='song-name'>선한 능력으로</span><span class='song-key'>E</span><span class='song-src'></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rx3r9QiwPT0' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>5</span><span class='song-name'>누군가 널 위해 기도하네</span><span class='song-key'>G</span><span class='song-src'></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=E6esaSaBfPw' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>6</span><span class='song-name'>하나님은 너를 지키시는 자</span><span class='song-key'>G</span><span class='song-src'>1부 마침 · God is your Protector</span></div>
+</div>
+</div>
+
+<div class='section'><div class='section-head'><span>본곡 · 2부</span><span class='cnt'>6곡</span></div>
+<div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=KaGkegxnk14' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>7</span><span class='song-name'>은혜로다 (시작됐네)</span><span class='song-key'>E♭</span><span class='song-src'>2부 시작 · 6/8박</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=D3lwm18SLUo' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>8</span><span class='song-name'>은혜 (내가 누려왔던)</span><span class='song-key'>B♭</span><span class='song-src'>손경민</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=yzlzAQapys0' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>9</span><span class='song-name'>십자가 (무엇이 변치 않아)</span><span class='song-key'>B♭</span><span class='song-src'></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=O3nOrZ1lDVw' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>10</span><span class='song-name'>모든 능력과 모든 권세</span><span class='song-key'>B♭</span><span class='song-src'>Above All</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=3FOyDLXvGBs' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>11</span><span class='song-name'>왕이신 나의 하나님</span><span class='song-key'>F</span><span class='song-src'></span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=8iqhWoVbDDk' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>12</span><span class='song-name'>물이 바다 덮음같이</span><span class='song-key'>G</span><span class='song-src'>마지막 곡 · 고형원</span></div>
+</div>
+</div>
+
+<div class='section nb-alt'><div class='section-head'><span>후보곡</span><span class='cnt'>11곡</span></div>
+<div class='song-list'>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Vv_kXSYyW-g' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→2</span><span class='song-name'>내가 매일 기쁘게</span><span class='song-key'>A♭</span><span class='song-src'>본곡 2 대체 · 찬송가 191장</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=F05UJmCxxtY' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→3</span><span class='song-name'>마음속에 근심 있는 사람</span><span class='song-key'>B♭</span><span class='song-src'>본곡 3 대체</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=rANKf4eziN0' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→4</span><span class='song-name'>예배합니다</span><span class='song-key'>E</span><span class='song-src'>본곡 4 대체 · I Will Worship You · Rose Park</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Zf4wdcnRgnY' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→5</span><span class='song-name'>밤이나 낮이나</span><span class='song-key'>E</span><span class='song-src'>본곡 5 대체</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=HH_dHRjDynM' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→6</span><span class='song-name'>주 선한 능력으로 안으시네</span><span class='song-key'>E</span><span class='song-src'>본곡 6 대체</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=xvhFVkVw9ks' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→7</span><span class='song-name'>죄짐 맡은 우리 구주</span><span class='song-key'>F</span><span class='song-src'>본곡 7 대체 · 찬송가</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=mNwz0ttmxGI' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→8</span><span class='song-name'>내 평생에 가는 길</span><span class='song-key'>D♭</span><span class='song-src'>본곡 8 대체 · 찬송가</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=q8zbfq39XVU' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→9</span><span class='song-name'>태산을 넘어 험곡에 가도</span><span class='song-key'>G</span><span class='song-src'>본곡 9 대체 · 찬송가</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=Y8x_-jBKUd8' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→10</span><span class='song-name'>그 참혹한 십자가에</span><span class='song-key'>F</span><span class='song-src'>본곡 10 대체 · 찬송가 269장</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=XqdLM2IAsEQ' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→11</span><span class='song-name'>찬양하라 복되신 구세주 예수</span><span class='song-key'>G</span><span class='song-src'>본곡 11 대체</span></div>
+<div class='song-item'><a class='yt-link' href='https://www.youtube.com/watch?v=ItV9tunJjkU' target='_blank' rel='noopener' title='YouTube'>▶</a><span class='nb-no'>→12</span><span class='song-name'>보라 너희는 두려워 말고</span><span class='song-key'>G</span><span class='song-src'>본곡 12 대체</span></div>
+</div>
+</div>
+
+<div class="legend">
+  <span class="legend-item">▶ 누르면 그 곡만 유튜브에서 재생</span>
+  <span class="legend-item">후보곡의 →4 는 본곡 4번 자리 대체</span>
+</div>
+
+</body></html>
