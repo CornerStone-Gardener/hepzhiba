@@ -290,7 +290,7 @@ body {
 <body>
 <div class="header">
   <div class="header-title">헵시바 찬양팀 월삭예배 콘티</div>
-  <div class="header-sub">JSON으로 관리 · 자동 링크 연결 · 2026-06-20 07:51</div>
+  <div class="header-sub" id="headerSub">콘티 불러오는 중…</div>
 </div>
 
 <div class="view-switch">
@@ -435,6 +435,7 @@ function renderArchive(past, db) {
 }
 
 function render(setlist, db, past) {
+  document.getElementById('headerSub').textContent = `${setlist.month || ''} 콘티 · 갱신 ${setlist.updated || ''}`.trim();
   const items = Array.isArray(setlist.items) ? setlist.items : [];
   const filledCount = items.filter(item => item.title).length;
   const ytCount = items.filter(item => {
