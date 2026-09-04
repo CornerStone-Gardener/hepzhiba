@@ -455,9 +455,9 @@ function render(setlist, db, past) {
       ${setlist.memo ? `<div class="memo">${esc(setlist.memo)}</div>` : ''}
     </section>
     <div class="play-all-wrap">
-      <a class="play-all-btn ${allUrl ? '' : 'disabled'}" href="${esc(allUrl || '#')}" target="_blank">
+      <a class="play-all-btn ${allUrl ? '' : 'disabled'}" href="monthly-play.html">
         <span>▶</span>
-        <span>이번 콘티 이어 듣기<div class="song-note">${ytCount}/${filledCount || items.length}곡 YouTube 연결</div></span>
+        <span>이번 콘티 이어 듣기<div class="song-note">콘티 순서 자동재생 · ${ytCount}/${filledCount || items.length}곡 YouTube 연결</div></span>
       </a>
     </div>
     <section class="section">

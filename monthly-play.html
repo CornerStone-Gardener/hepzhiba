@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>이번달 콘티 이어 듣기</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+html, body { height:100%; background:#000; font-family:'Malgun Gothic','맑은 고딕',-apple-system,sans-serif; }
+.top { background:#1a3a6e; color:#fff; padding:10px 14px; display:flex; align-items:center; gap:10px; }
+.top-title { font-size:15px; font-weight:bold; }
+.top-sub { font-size:12px; opacity:.75; }
+.back-btn { color:#fff; text-decoration:none; font-size:20px; padding:4px 8px; }
+.view-switch { display:flex; gap:6px; padding:10px 14px; background:#141c26; flex-wrap:wrap; }
+.view-switch a { font-size:12.5px; color:#9fb3c8; text-decoration:none; padding:6px 11px; border-radius:14px; background:#1e2836; }
+.view-switch a.active { background:#2f6fd0; color:#fff; font-weight:bold; }
+iframe { width:100%; height:calc(100vh - 96px); border:none; display:block; }
+.list { background:#0d131b; color:#cfd8e3; padding:8px 14px 14px; font-size:13px; }
+.list div { padding:4px 0; border-bottom:1px solid #1e2836; }
+.list b { color:#fff; }
+.list .off { color:#7a8794; }
+.msg { color:#cfd8e3; padding:24px 16px; text-align:center; }
+</style>
+</head>
+<body>
+<div class="top">
+  <a class="back-btn" href="monthly.html">←</a>
+  <div>
+    <div class="top-title" id="ttl">이번달 콘티 이어 듣기</div>
+    <div class="top-sub" id="sub">불러오는 중…</div>
+  </div>
+</div>
+<div class="view-switch">
+  <a href="index.html">코드별</a>
+  <a href="alphabet.html">가나다순</a>
+  <a class="active" href="monthly.html">이번달 콘티</a>
+  <a href="nobang.html">노방찬양</a>
+</div>
+<div id="player"></div>
+<div class="list" id="list"></div>
+<script>
+const esc = v => String(v ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm = v => String(v || '').replace(/\s/g, '').replace(/\([^)]*\)/g, '').replace(/[,\s장]+/g, '').toLowerCase();
+const vid = u => { const m = String(u || '').match(/[?&]v=([A-Za-z0-9_-]{11})/); return m ? m[1] : ''; };
+function findSong(db, title) {
+  const k = norm(title); if (!k) return null;
+  return db.find(s => norm(s.title) === k) || db.find(s => norm(s.title).startsWith(k) || k.startsWith(norm(s.title)));
+}
+Promise.all([
+  fetch('monthly-setlist.json', {cache:'no-store'}).then(r => r.json()),
+  fetch('monthly-song-db.json', {cache:'no-store'}).then(r => r.json())
+]).then(([sl, db]) => {
+  const items = Array.isArray(sl.items) ? sl.items : [];
+  const rows = items.map(it => { const s = findSong(db, it.title); return { title: it.title, key: it.key || (s && s.key) || '', id: vid(it.url || (s && s.url)) }; });
+  const ids = rows.map(r => r.id).filter(Boolean);
+  document.getElementById('ttl').textContent = (sl.month || '이번달') + ' 콘티 이어 듣기';
+  document.getElementById('sub').textContent = `${ids.length}/${items.length}곡 · 콘티 순서 자동재생`;
+  document.getElementById('list').innerHTML = rows.map((r, i) =>
+    `<div class="${r.id ? '' : 'off'}">${i + 1}. <b>${esc(r.title)}</b> ${r.key ? esc(r.key) : ''}${r.id ? '' : ' · YouTube 미연결'}</div>`).join('');
+  if (!ids.length) { document.getElementById('player').innerHTML = '<div class="msg">YouTube에 연결된 곡이 없습니다.</div>'; return; }
+  const src = `https://www.youtube.com/embed/${ids[0]}?playlist=${ids.slice(1).join(',')}&autoplay=1&rel=0`;
+  document.getElementById('player').innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
+}).catch(e => { document.getElementById('player').innerHTML = `<div class="msg">콘티를 불러오지 못했습니다: ${esc(e.message)}</div>`; });
+</script>
+</body>
+</html>
