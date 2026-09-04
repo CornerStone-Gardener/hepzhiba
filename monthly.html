@@ -460,6 +460,7 @@ function render(setlist, db, past) {
         <span>▶</span>
         <span>이번 콘티 이어 듣기<div class="song-note">콘티 순서 자동재생 · ${ytCount}/${filledCount || items.length}곡 YouTube 연결</div></span>
       </a>
+      ${allUrl ? `<a class="play-all-btn" style="margin-top:8px;background:#fff;color:#c0392b;border:1px solid #c0392b;box-shadow:none" href="${esc(allUrl)}" target="_blank" rel="noopener"><span>▶</span><span>유튜브 앱에서 이어 듣기<div class="song-note">내 계정으로 재생 · 프리미엄이면 광고 없음</div></span></a>` : ''}
     </div>
     <section class="section">
       <div class="section-head"><span>콘티 순서</span><span>${filledCount}/${items.length}곡 입력</span></div>

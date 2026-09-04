@@ -14,12 +14,14 @@ html, body { height:100%; background:#000; font-family:'Malgun Gothic','맑은 �
 .view-switch { display:flex; gap:6px; padding:10px 14px; background:#141c26; flex-wrap:wrap; }
 .view-switch a { font-size:12.5px; color:#9fb3c8; text-decoration:none; padding:6px 11px; border-radius:14px; background:#1e2836; }
 .view-switch a.active { background:#2f6fd0; color:#fff; font-weight:bold; }
-iframe { width:100%; height:calc(100vh - 96px); border:none; display:block; }
+iframe { width:100%; height:calc(100vh - 160px); border:none; display:block; }
 .list { background:#0d131b; color:#cfd8e3; padding:8px 14px 14px; font-size:13px; }
 .list div { padding:4px 0; border-bottom:1px solid #1e2836; }
 .list b { color:#fff; }
 .list .off { color:#7a8794; }
 .msg { color:#cfd8e3; padding:24px 16px; text-align:center; }
+.ytopen { display:block; margin:10px 14px 0; padding:12px; background:#ff0000; color:#fff; text-decoration:none; border-radius:10px; font-weight:bold; text-align:center; font-size:14px; }
+.ytopen small { display:block; font-weight:normal; font-size:11.5px; opacity:.9; margin-top:2px; }
 </style>
 </head>
 <body>
@@ -36,6 +38,7 @@ iframe { width:100%; height:calc(100vh - 96px); border:none; display:block; }
   <a class="active" href="monthly.html">이번달 콘티</a>
   <a href="nobang.html">노방찬양</a>
 </div>
+<a class="ytopen" id="ytopen" href="#" target="_blank" rel="noopener" hidden>▶ 유튜브 앱에서 이어 듣기<small>내 계정으로 재생 · 프리미엄이면 광고 없음</small></a>
 <div id="player"></div>
 <div class="list" id="list"></div>
 <script>
@@ -58,6 +61,8 @@ Promise.all([
   document.getElementById('list').innerHTML = rows.map((r, i) =>
     `<div class="${r.id ? '' : 'off'}">${i + 1}. <b>${esc(r.title)}</b> ${r.key ? esc(r.key) : ''}${r.id ? '' : ' · YouTube 미연결'}</div>`).join('');
   if (!ids.length) { document.getElementById('player').innerHTML = '<div class="msg">YouTube에 연결된 곡이 없습니다.</div>'; return; }
+  const yo = document.getElementById('ytopen'); yo.hidden = false;
+  yo.href = ids.length === 1 ? `https://www.youtube.com/watch?v=${ids[0]}` : `https://www.youtube.com/watch_videos?video_ids=${ids.join(',')}`;
   const src = `https://www.youtube.com/embed/${ids[0]}?playlist=${ids.slice(1).join(',')}&autoplay=1&rel=0`;
   document.getElementById('player').innerHTML = `<iframe src="${src}" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>`;
 }).catch(e => { document.getElementById('player').innerHTML = `<div class="msg">콘티를 불러오지 못했습니다: ${esc(e.message)}</div>`; });
